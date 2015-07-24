@@ -21,14 +21,14 @@ using System.Threading.Tasks;
 
 namespace tx_multipledocumentprint
 {
-    /*-------------------------------------------------------------------------------------------------------
+    /*----------------------------------------------------------
     ** MultipagePrintDocument class
-    **-----------------------------------------------------------------------------------------------------*/
+    **--------------------------------------------------------*/
     class MultipagePrintDocument : PrintDocument
     {
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** Private data fields
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         private TXTextControl.TextControl m_textControl;
         private PagePerSheet m_pagesPerSheet;
         private bool m_drawPageBorders;
@@ -36,9 +36,9 @@ namespace tx_multipledocumentprint
         private Size m_paperSize;
         private int m_currentPage;
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** PagePerSheet enumeration
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         public enum PagePerSheet
         {
             OnePage = 1,
@@ -51,10 +51,10 @@ namespace tx_multipledocumentprint
             EightByFour = 32
         }
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** Constructor
 	    ** description:	Initializes the private data fields
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         public MultipagePrintDocument(TXTextControl.TextControl textControl,
             PagePerSheet pagesPerSheet,
             bool drawPageBorders)
@@ -68,13 +68,15 @@ namespace tx_multipledocumentprint
             m_drawPageBorders = drawPageBorders;
         }
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** OnPrintPage
-	    ** description:	This method overrides the standard OnPrintPage method and implements the rendering
-        **              of more pages on a single sheet
+	    ** description:	This method overrides the standard
+        **              OnPrintPage method and implements the
+        **              rendering of more pages on a single
+        **              sheet
         **
 	    ** parameters:	standard PrintPageEventArgs
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         protected override void OnPrintPage(PrintPageEventArgs e)
         {
             base.OnPrintPage(e);
@@ -138,23 +140,25 @@ namespace tx_multipledocumentprint
             e.HasMorePages = (m_currentPage <= m_toPage);
         }
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** HundredthsOfAnInchToPoint
-	    ** description:	Helper function to convert 1/100 inch to points
+	    ** description:	Helper function to convert 1/100 inch to
+        **              points
         **
 	    ** parameters:	float value to convert
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         private static float HundredthsOfAnInchToPoint(float value)
         {
             return (float)((value * 72) / 100);
         }
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** GetThumbnailValuePair
-	    ** description:	Returns a ThumbnailGrid value pair based on the enum value 'PagePerSheet'
+	    ** description:	Returns a ThumbnailGrid value pair based
+        **              on the enum value 'PagePerSheet'
         **
 	    ** parameters:	enum PagePerSheet pagesPerSheet
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         private ThumbnailGrid GetThumbnailValuePair(PagePerSheet pagesPerSheet)
         {
             ThumbnailGrid szColRowSize;
@@ -179,10 +183,11 @@ namespace tx_multipledocumentprint
             return szColRowSize;
         }
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** ThumbnailGrid
-	    ** description:	Helper struct to store column and row values
-	    **-----------------------------------------------------------------------------------------------------*/
+	    ** description:	Helper struct to store column and row
+        **              values
+	    **----------------------------------------------------*/
         private struct ThumbnailGrid
         {
             public int Columns, Rows;
@@ -194,13 +199,14 @@ namespace tx_multipledocumentprint
             }
         }
 
-        /*-------------------------------------------------------------------------------------------------------
+        /*------------------------------------------------------
 	    ** OnBeginPrint
-	    ** description:	This method overrides the standard OnBeginPrint method and sets the from and to
-        ** page values
+	    ** description:	This method overrides the standard
+        **              OnBeginPrint method and sets the from
+        **              and to page values
         **
 	    ** parameters:	standard PrintEventArgs
-	    **-----------------------------------------------------------------------------------------------------*/
+	    **----------------------------------------------------*/
         protected override void OnBeginPrint(PrintEventArgs e)
         {
             base.OnBeginPrint(e);
